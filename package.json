@@ -4,7 +4,7 @@
   "description": "Tiny shopping cart on top of LolcalStorage - ES6, < 1Kb, test coverage",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/peet86/cart-localstorage/issues"
   },
-  "homepage": "https://github.com/peet86/cart-localstorage#readme"
+  "homepage": "https://github.com/peet86/cart-localstorage#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.1",
+    "babel-loader": "^8.0.5",
+    "jest": "^24.5.0"
+  }
 }
