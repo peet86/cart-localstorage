@@ -1,0 +1,27 @@
+{
+  "name": "cart-localstorage",
+  "version": "1.0.0",
+  "description": "Tiny shopping cart on top of LolcalStorage - ES6, < 1Kb, test coverage",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://peet86@github.com/peet86/cart-localstorage.git"
+  },
+  "keywords": [
+    "shopping",
+    "cart",
+    "cart",
+    "localstorage",
+    "js",
+    "javascript"
+  ],
+  "author": "Peter Varga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peet86/cart-localstorage/issues"
+  },
+  "homepage": "https://github.com/peet86/cart-localstorage#readme"
+}
