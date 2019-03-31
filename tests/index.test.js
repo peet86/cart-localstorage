@@ -62,6 +62,26 @@ describe('Cart', () => {
 
 	describe('add', () => {
 
+		it('should not add product to the cart without id', () => {
+
+			getLocalStorage.mockReturnValue(CART_0);
+
+			add({ name: "c", price: 100 });
+
+			expect(saveLocalStorage).not.toHaveBeenCalled();
+
+		});
+
+		it('should not add product to the cart without price', () => {
+
+			getLocalStorage.mockReturnValue(CART_0);
+
+			add({ name: "c", id: 10 });
+
+			expect(saveLocalStorage).not.toHaveBeenCalled();
+
+		});
+
 		it('should add the new product to the empty cart', () => {
 
 			getLocalStorage.mockReturnValue(CART_0);
@@ -113,7 +133,6 @@ describe('Cart', () => {
 
 		});
 
-
 	})
 
 	describe('remove', () => {
@@ -154,7 +173,7 @@ describe('Cart', () => {
 
 			getLocalStorage.mockReturnValue(CART_12);
 
-			update(1,"quantity", 5);
+			update(1, "quantity", 5);
 			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_1, quantity: 5 }, PRODUCT_2]);
 
 		})
@@ -163,7 +182,7 @@ describe('Cart', () => {
 
 			getLocalStorage.mockReturnValue(CART_1);
 
-			update(2,"quantity", 3);
+			update(2, "quantity", 3);
 
 			expect(saveLocalStorage).toBeCalledWith(CART_1);
 
@@ -173,7 +192,7 @@ describe('Cart', () => {
 
 			getLocalStorage.mockReturnValue(CART_1);
 
-			update(1,"quantity", -1);
+			update(1, "quantity", -1);
 			expect(saveLocalStorage).toBeCalledWith(CART_1);
 
 		})

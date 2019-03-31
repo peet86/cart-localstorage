@@ -6,7 +6,7 @@ const get = (id) => getStorage().find((product) => product.id === id)
 
 const exists = (id) => !!get(id)
 
-const add = (product, quantity) => exists(product.id) ? update(product.id, 'quantity', get(product.id).quantity + (quantity || 1)) : saveStorage(getStorage().concat({ ...product, quantity: quantity || 1 }));
+const add = (product, quantity) => isValid(product) ? exists(product.id) ? update(product.id, 'quantity', get(product.id).quantity + (quantity || 1)) : saveStorage(getStorage().concat({ ...product, quantity: quantity || 1 })) : null;
 
 const remove = (id) => saveStorage(getStorage().filter((product) => product.id !== id))
 
@@ -16,6 +16,8 @@ const total = (cb) => getStorage().reduce((sum, product) => isCallback(cb) ? cb(
 
 const destroy = () => clearStorage()
 
+
+const isValid = (product) => product.id && product.price
 
 const subtotal = (product) => isCalcable(product) ? (product.price * product.quantity) : 0
 
