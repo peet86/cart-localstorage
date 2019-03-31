@@ -32,9 +32,10 @@ console.log(total())
 
 ## Features
 
-#### add(product, quantity)
+#### add(product, [quantity])
 
-Adds product into the cart. If the product already exists with the same id increases the quantity.  
+Adds product into the cart. If the product is already exists (same id) it increases the quantity with 1. 
+The second quantity argument is optional, the default value is 1. 
 
 ```
 add({id: 3, name: "Vans", price: 75}, 2)
@@ -75,14 +76,14 @@ Removes the product from the cart
 remove(1)
 ```
 
-#### update(id, field, valud)
+#### update(id, field, value)
 
 Updates product's field with a certain value.
 ```
 update(1,'price',200)
 ```
 
-#### total(callback)
+#### total([reducer])
 
 By default it returns with the total price:  
 
