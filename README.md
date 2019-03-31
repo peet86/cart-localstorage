@@ -1,12 +1,6 @@
 # cart-localstorage
 Super simple shopping cart library with a very small footprint (~1Kb, 0 dependencies)
 
-
-## Demo 
-
-//todo 
-
-
 ## Install: 
 
 This is a JavaScript ES6 library. Use npm or yarn to add it to your project: 
@@ -19,18 +13,24 @@ npm install cart-localstorage
 yarn add cart-localstorage
 ```
 
-## How to start? 
+## Example 
 
 ``` 
 import { add, total } from 'cart-localstorage' 
 
-add({id: 1, name: "Product 1", price: 100}, 1)
+add({id: 1, name: "Product 1", price: 100})
+add({id: 2, name: "Product 2", price: 100}, 2)
 
 console.log(total()) 
-// output: 100
+// output: 300
 ```
 
-## Features
+## Demo 
+
+//todo 
+
+
+## API 
 
 #### add(product, [quantity])
 
