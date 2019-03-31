@@ -31,7 +31,7 @@ var cartLS = (function (exports) {
 
 	const destroy = () => clear();
 
-	const listen$1 = (cb) => listen(cb);
+	const onChange = (cb) => listen(cb);
 
 
 	const isValid = (product) => product.id && product.price;
@@ -47,7 +47,7 @@ var cartLS = (function (exports) {
 	exports.exists = exists;
 	exports.get = get$1;
 	exports.list = list;
-	exports.listen = listen$1;
+	exports.onChange = onChange;
 	exports.remove = remove;
 	exports.subtotal = subtotal;
 	exports.total = total;
