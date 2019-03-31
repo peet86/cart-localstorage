@@ -1,5 +1,7 @@
 # cart-localstorage
-Super simple shopping cart library with a very small footprint (~1Kb, 0 dependencies)
+Super simple shopping cart library
+
+This library utilizes the browser's localStorage and creates a persistent shopping cart instance during the first add(product) call. 
 
 ## Install: 
 
@@ -32,13 +34,14 @@ console.log(total())
 
 ## API 
 
-#### add(product, [quantity])
+#### add(product, [quantity:1])
 
-Adds product into the cart. If the product is already exists (same id) it increases the quantity with 1. 
-The second quantity argument is optional, the default value is 1. 
+Adds a product into the cart. If the product is already exists (same id) it increases the quantity with +1. 
+"Product" should be a JavaScript object with "id" and "price" properties.
 
 ```
-add({id: 3, name: "Vans", price: 75}, 2)
+const myproduct = {id: 3, name: "Vans", price: 75}
+add(myproduct, 2)
 ```
 
 #### get(id)
