@@ -6,7 +6,7 @@ const get = (id) => getStorage().find((product) => product.id === id)
 
 const exists = (id) => !!get(id)
 
-const add = (product, quantity) => exists(product.id) ? update(product.id, 'quantity', get(product.id).quantity + 1) : saveStorage(getStorage().concat({ ...product, quantity: quantity || 1 }));
+const add = (product, quantity) => exists(product.id) ? update(product.id, 'quantity', get(product.id).quantity + (quantity || 1)) : saveStorage(getStorage().concat({ ...product, quantity: quantity || 1 }));
 
 const remove = (id) => saveStorage(getStorage().filter((product) => product.id !== id))
 

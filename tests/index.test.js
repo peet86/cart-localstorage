@@ -93,6 +93,26 @@ describe('Cart', () => {
 
 		});
 
+		it('should increase the quantity with the second parameter\'s value when the product exists in the cart ', () => {
+
+			getLocalStorage.mockReturnValue(CART_12);
+
+			add(PRODUCT_2, 2);
+
+			expect(saveLocalStorage).toBeCalledWith([PRODUCT_1, { ...PRODUCT_2, quantity: 3 }]);
+
+		});
+
+		it('should add the new product with the second parameter\'s value to the cart', () => {
+
+			getLocalStorage.mockReturnValue(CART_0);
+
+			add(PRODUCT_1, 3);
+
+			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_1, quantity: 3 }]);
+
+		});
+
 
 	})
 
