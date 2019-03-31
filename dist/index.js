@@ -9,11 +9,7 @@ var cartLS = (function (exports) {
 
 	const clear = () => localStorage.removeItem(STORAGE_KEY);
 
-	const listen = (cb) => window.addEventListener('storage', (event,cb) => {
-		if(event.key === STORAGE_KEY){
-			cb(get(STORAGE_KEY));
-		}
-	});
+	const listen = (cb) => window.addEventListener('storage', (event) =>  (event.key === STORAGE_KEY) ? cb(get(STORAGE_KEY)) : false);
 
 	const list = () => get();
 
