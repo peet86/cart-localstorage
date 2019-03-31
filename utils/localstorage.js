@@ -10,5 +10,7 @@ export const save = (data, key) => {
 	if(saveListener) saveListener(get(key || STORAGE_KEY))
 }
 
-export const clear = () => localStorage.removeItem(STORAGE_KEY)
-
+export const clear = () => {
+	localStorage.removeItem(STORAGE_KEY)
+	if(saveListener) saveListener(get(key || STORAGE_KEY))
+}

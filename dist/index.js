@@ -4,6 +4,7 @@ var cartLS = (function (exports) {
 	const STORAGE_KEY = '__cart';
 
 	let saveListener = null;
+	const listen = (cb) => { saveListener = cb; }; // ugly but storage listener is not working for the same window..
 
 	const get = (key) => JSON.parse(localStorage.getItem(key || STORAGE_KEY)) || [];
 
@@ -12,9 +13,10 @@ var cartLS = (function (exports) {
 		if(saveListener) saveListener(get(key || STORAGE_KEY));
 	};
 
-	const clear = () => localStorage.removeItem(STORAGE_KEY);
-
-	const listen = (cb) => { saveListener = cb; }; // ugly but storage listener is not working for the same window..
+	const clear = () => {
+		localStorage.removeItem(STORAGE_KEY);
+		if(saveListener) saveListener(get(key || STORAGE_KEY));
+	};
 
 	const list = () => get();
 

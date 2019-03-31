@@ -16,22 +16,23 @@
 		<table class="cart table">
 			
 		</table>
+
+		<Button onClick="destroyCart()" class="btn btn-warning">Destroy!</Button>
+
 	<script src="../dist/index.js"></script>
 	<script>
 
 			// render
 			const renderCart = (items) => {
 				const $cart = document.querySelector(".cart")
-				const htmlArray = items.map((item)=>`
+				$cart.innerHTML = items.map((item)=>`
 					<tr>
 						<td>#${item.id}</td>
 						<td>${item.name}</td>
 						<td>${item.quantity}</td>
 						<td>${item.price}</td>
 						<td><Button class="btn btn-primary" onClick="removeFromCart(${item.id})">Delete</Button></td>
-					</tr>`)
-					console.log($cart)
-					$cart.innerHTML = htmlArray.join("")
+					</tr>`).join("")
 			}
 
 			// init 
@@ -48,6 +49,11 @@
 			// remove
 			const removeFromCart = (id) =>{
 				cartLS.remove(id)
+			}
+
+			// destroy
+			const destroyCart = ()=>{
+				cartLS.destroy();
 			}
 	</script>
 </body>
