@@ -9,6 +9,12 @@ var cartLS = (function (exports) {
 
 	const clear = () => localStorage.removeItem(STORAGE_KEY);
 
+	const listen = (cb) => window.addEventListener('storage', (event, cb)=> (event,cb) => {
+		if(event.key === STORAGE_KEY){
+			cb(get(STORAGE_KEY));
+		}
+	});
+
 	const list = () => get();
 
 	const get$1 = (id) => get().find((product) => product.id === id);
@@ -25,6 +31,8 @@ var cartLS = (function (exports) {
 
 	const destroy = () => clear();
 
+	const listen$1 = (cb) => listen(cb);
+
 
 	const isValid = (product) => product.id && product.price;
 
@@ -39,6 +47,7 @@ var cartLS = (function (exports) {
 	exports.exists = exists;
 	exports.get = get$1;
 	exports.list = list;
+	exports.listen = listen$1;
 	exports.remove = remove;
 	exports.subtotal = subtotal;
 	exports.total = total;

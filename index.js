@@ -27,4 +27,4 @@ const isCalcable = (product) => (product && product.price && product.quantity)
 
 const isCallback = (cb) => cb && typeof cb === Function
 
-export { list, get, add, remove, update, total, destroy, exists, subtotal };
+export { list, get, add, remove, update, total, destroy, exists, subtotal, listen };
