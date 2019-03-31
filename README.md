@@ -5,9 +5,15 @@
 This library utilizes the browser's localStorage and creates a persistent shopping cart instance during the first add(product) call. 
 
 
+## Demo 
+
+[Cart demo](http://peet86.github.io/cart-localstorage)
+
+
 ## Install: 
 
-This is a JavaScript ES6 library. Use npm or yarn to add it to your project: 
+This is an ES6 JavaScript library. 
+Use npm or yarn to add it to your project: 
 
 ``` 
 npm install cart-localstorage
@@ -16,6 +22,13 @@ npm install cart-localstorage
 ```
 yarn add cart-localstorage
 ```
+
+OR use the bundle: 
+
+```
+<script src="cart-localstorage.js"></script>
+```
+
 
 ## Example 
 
@@ -29,9 +42,6 @@ console.log(total())
 // output: 300
 ```
 
-## Demo 
-
-//todo 
 
 
 ## API 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup index.js --file dist/index.js --format iife --name cartLS"
+    "build": "rollup index.js --file dist/cart-localstorage.js --format iife --name cartLS"
   },
   "repository": {
     "type": "git",
