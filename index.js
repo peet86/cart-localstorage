@@ -1,4 +1,4 @@
-import { get as getStorage, save as saveStorage, clear as clearStorage } from './utils/localstorage'
+import { get as getStorage, save as saveStorage, clear as clearStorage, listen as listenStorage } from './utils/localstorage'
 
 const list = () => getStorage();
 
@@ -15,6 +15,8 @@ const update = (id, field, value) => saveStorage(getStorage().map((product) => p
 const total = (cb) => getStorage().reduce((sum, product) => isCallback(cb) ? cb(sum, product) : (sum += subtotal(product)), 0);
 
 const destroy = () => clearStorage()
+
+const listen = (cb) => listenStorage(cb)
 
 
 const isValid = (product) => product.id && product.price
