@@ -1,10 +1,10 @@
 # cart-localstorage
-Super Simple Shopping Cart on top of browser localStorage with a very small footprint (~1Kb, 0 dependencies)
+Super Simple Shopping Cart with a very small footprint (~1Kb, 0 dependencies) based on the browser's localStorage
 
 
 ## Demo 
 
-//todo add codepen demo
+//todo 
 
 
 ## INSTALL: 
@@ -23,17 +23,20 @@ yarn install cart-localstorage
 ## How to start? 
 
 ``` 
-import Cart from 'cart-localstorage' 
+import { add, total } from 'cart-localstorage' 
 
-Cart.add({id: 1, name: "Product 1", price: 100},1)
+add({id: 1, name: "Product 1", price: 100}, 1)
 
-console.log(Cart.total()) 
+console.log(total()) 
 // output: 100
 
 ...
 ```
 
+
+
 ## API 
+
 
 #### list()
 
@@ -41,7 +44,7 @@ Array of products in the cart.
 
 ``` 
 list()
-// output:  [{id: 1, name: "Nike Air", price: 100, quantity: 1}, {id: 1, name: "Adidas Superstar", price: 120, quantity: 2}]
+// [{id: 1, name: "Nike Air", price: 100, quantity: 1}, {id: 1, name: "Adidas Superstar", price: 120, quantity: 2}]
 ``` 
 
 #### get(<id>)
@@ -50,12 +53,22 @@ Get product by id
 
 ```
 get(1)
-// output:  [{id: 1, name: "Nike Air", price: 100, quantity: 1}]
+// {id: 1, name: "Nike Air", price: 100, quantity: 1}
 ```
+
+#### exists(<id>)
+
+Checks if the product is already exists in the cart
+
+```
+exists(21)
+// true or false
+```
+
 
 #### add(<product>)
 
-Adds product into the cart. If a product exists with the same <id> increases the quantity only.  
+Adds product into the cart. If a product exists with the same <id> increases the quantity.  
 
 ```
 add({id: 3, name: "Vans", price: 75, quantity: 2})
@@ -63,21 +76,35 @@ add({id: 3, name: "Vans", price: 75, quantity: 2})
 
 #### remove(<id>)
 
-Removes product by id 
+Removes the product from the cart
 
 ```
 remove(1)
 ```
 
-#### update(<id>,<quantity>)
+#### update(<id>, <field>, <valud>)
 
-Updates the product quantity on a specific product 
+Updates a specific product's field with a certain value.
 ```
-update(1,5)
+update(1,'price',200)
 ```
 
+#### total(<callback>)
+
+By default it returns with the total price:  
+
+```
 total()
+// 220
+```
+or you can pass a custom reducer function as first argument.
 
+
+#### detroy()
+
+Deletes the cart array from localStorage.
+
+```
 detroy()
 
 ```

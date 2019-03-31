@@ -14,9 +14,10 @@ const update = (id, field, value) => saveStorage(getStorage().map((product) => p
 
 const total = (cb) => getStorage().reduce((sum, product) => isCallback(cb) ? cb(sum, product) : (sum += subtotal(product)), 0);
 
-const subtotal = (product) => isCalcable(product) ? (product.price * product.quantity) : 0
-
 const destroy = () => clearStorage()
+
+
+const subtotal = (product) => isCalcable(product) ? (product.price * product.quantity) : 0
 
 const isCalcable = (product) => (product && product.price && product.quantity)
 
