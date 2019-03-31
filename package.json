@@ -4,7 +4,7 @@
   "description": "Tiny shopping cart on top of LolcalStorage - ES6, < 1Kb, test coverage",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
