@@ -13,11 +13,10 @@ This is a JavaScript ES6 library. Use npm or yarn to add it to your project:
 
 ``` 
 npm install cart-localstorage
+```
 
-or 
-
+```
 yarn add cart-localstorage
-
 ```
 
 ## How to start? 
