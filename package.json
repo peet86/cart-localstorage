@@ -4,7 +4,8 @@
   "description": "Tiny shopping cart on top of LolcalStorage - ES6, < 1Kb, test coverage",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "rollup index.js --file dist/index.js --format iife --name cartLS"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.1",
     "babel-loader": "^8.0.5",
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "rollup": "^1.7.4"
   }
 }
