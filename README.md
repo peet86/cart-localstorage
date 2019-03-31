@@ -1,5 +1,5 @@
 # cart-localstorage
-Super Simple Shopping Cart with a very small footprint (~1Kb, 0 dependencies) based on the browser's localStorage
+Super simple shopping cart library with a very small footprint (~1Kb, 0 dependencies)
 
 
 ## Demo 
@@ -7,7 +7,7 @@ Super Simple Shopping Cart with a very small footprint (~1Kb, 0 dependencies) ba
 //todo 
 
 
-## INSTALL: 
+## Install: 
 
 This is a JavaScript ES6 library. Use npm or yarn to add it to your project: 
 
@@ -33,19 +33,15 @@ console.log(total())
 ...
 ```
 
+## Features
 
+#### add(<product>)
 
-## API 
+Adds product into the cart. If a product exists with the same <id> increases the quantity.  
 
-
-#### list()
-
-Array of products in the cart. 
-
-``` 
-list()
-// [{id: 1, name: "Nike Air", price: 100, quantity: 1}, {id: 1, name: "Adidas Superstar", price: 120, quantity: 2}]
-``` 
+```
+add({id: 3, name: "Vans", price: 75, quantity: 2})
+```
 
 #### get(<id>)
 
@@ -65,14 +61,14 @@ exists(21)
 // true or false
 ```
 
+#### list()
 
-#### add(<product>)
+Dumps the cart as an array of products. 
 
-Adds product into the cart. If a product exists with the same <id> increases the quantity.  
-
-```
-add({id: 3, name: "Vans", price: 75, quantity: 2})
-```
+``` 
+list()
+// [{id: 1, name: "Nike Air", price: 100, quantity: 1}, {id: 1, name: "Adidas Superstar", price: 120, quantity: 2}]
+``` 
 
 #### remove(<id>)
 
@@ -84,7 +80,7 @@ remove(1)
 
 #### update(<id>, <field>, <valud>)
 
-Updates a specific product's field with a certain value.
+Updates product's field with a certain value.
 ```
 update(1,'price',200)
 ```
@@ -97,7 +93,7 @@ By default it returns with the total price:
 total()
 // 220
 ```
-or you can pass a custom reducer function as first argument.
+or you can pass a custom reducer function as first argument and return with a custom field's total value.
 
 
 #### detroy()
