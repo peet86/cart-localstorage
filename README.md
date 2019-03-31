@@ -2,7 +2,7 @@
 
 #### Super simple JavaScript shopping cart library
 
-This library utilizes the browser's localStorage and creates a persistent shopping cart instance during the first add(product) call. 
+This micro library utilizes the browser's localStorage to create a persistent shopping cart instance. 
 
 
 ## Demo 
@@ -12,8 +12,7 @@ This library utilizes the browser's localStorage and creates a persistent shoppi
 
 ## Install: 
 
-This is an ES6 JavaScript library. 
-Use npm or yarn to add it to your project: 
+Use npm or yarn to add it to your ES6 project: 
 
 ``` 
 npm install cart-localstorage
@@ -23,14 +22,14 @@ npm install cart-localstorage
 yarn add cart-localstorage
 ```
 
-OR use the bundle: 
+OR use the bundled version: 
 
 ```
 <script src="cart-localstorage.js"></script>
 ```
 
 
-## Example 
+## Example
 
 ``` 
 import { add, total } from 'cart-localstorage' 
@@ -48,8 +47,8 @@ console.log(total())
 
 #### add(product, [quantity:1])
 
-Adds a product into the cart. If the product is already exists (same id) it increases the quantity with +1. 
-"Product" should be a JavaScript object with "id" and "price" properties.
+Adds a product into the cart. If the product is already exists (same id) it increases the quantity of the product with 1. 
+"Product" always should be a JavaScript object with "id" and "price" mandatory properties.
 
 ```
 const myproduct = {id: 3, name: "Vans", price: 75}
@@ -80,20 +79,20 @@ Dumps the cart as an array of products.
 
 ``` 
 list()
-// [{id: 1, name: "Nike Air", price: 100, quantity: 1}, {id: 1, name: "Adidas Superstar", price: 120, quantity: 2}]
+// [{id: 1, name: "Nike Air", price: 100, quantity: 1}, {id: 2, name: "Adidas Superstar", price: 120, quantity: 2}]
 ``` 
 
 #### remove(id)
 
-Removes the product from the cart
+Removes product from the cart
 
 ```
 remove(1)
 ```
 
-#### update(id, field, value)
+#### update(id, property, value)
 
-Updates product's field with a certain value.
+Updates product's property with a certain value.
 ```
 update(1,'price',200)
 ```
@@ -106,7 +105,7 @@ By default it returns with the total price:
 total()
 // 220
 ```
-or you can pass a custom reducer function as first argument and return with a custom field's total value.
+or you can pass a custom reducer function as the first argument and have full control over the calculation.
 
 
 #### detroy()
@@ -115,7 +114,6 @@ Deletes the cart array from localStorage.
 
 ```
 detroy()
-
 ```
 
 
