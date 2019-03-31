@@ -16,7 +16,7 @@ npm install cart-localstorage
 
 or 
 
-yarn install cart-localstorage
+yarn add cart-localstorage
 
 ```
 
