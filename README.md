@@ -35,12 +35,12 @@ console.log(total())
 
 ## Features
 
-#### add(<product>)
+#### add(<product>, <quantity>)
 
-Adds product into the cart. If a product exists with the same <id> increases the quantity.  
+Adds product into the cart. If the product already exists with the same id increases the quantity.  
 
 ```
-add({id: 3, name: "Vans", price: 75, quantity: 2})
+add({id: 3, name: "Vans", price: 75}, 2)
 ```
 
 #### get(<id>)
