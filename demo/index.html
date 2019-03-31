@@ -10,51 +10,98 @@
 </head>
 
 <body>
-		<Button onClick="addToCart()" class="btn btn-primary">Add to Cart</Button>
+	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+		<h1 class="my-0 mr-md-auto font-weight-normal">cart-localstorage</h1>
+		
+		<a class="btn btn-outline-warning" href="#">Destroy</a>
+	</div>
+	<div class="container">
+		<h2>Products</h2>
 
-		<h3>Cart</h3>
-		<table class="cart table">
-			
-		</table>
+		<div class="card-deck mb-3 text-center">
+			<div class="card mb-4 shadow-sm">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">Nike Air</h4>
+				</div>
+				<div class="card-body">
+					<h1 class="card-title pricing-card-title">$100</h1>
+					<button type="button" class="btn btn-lg btn-block btn-outline-primary" onClick="cartLS.add({id: 1, name: 'Nike Air', price: 100})">Add to
+						Cart</button>
+				</div>
+			</div>
+			<div class="card mb-4 shadow-sm">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">Adidas Superstar</h4>
+				</div>
+				<div class="card-body">
+					<h1 class="card-title pricing-card-title">$120</h1>
+					<button type="button" class="btn btn-lg btn-block btn-outline-primary" onClick="cartLS.add({id: 2, name: 'Adidas Superstar', price: 120})">Add to
+						Cart</button>
+				</div>
+			</div>
+			<div class="card mb-4 shadow-sm">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal">Puma St Runner</h4>
+				</div>
+				<div class="card-body">
+					<h1 class="card-title pricing-card-title">$130</h1>
+					<button type="button" class="btn btn-lg btn-block btn-outline-primary" onClick="cartLS.add({id: 3, name: 'Puma St Runner', price: 130})">Add to
+						Cart</button>
+				</div>
+			</div>
+		</div>
 
-		<Button onClick="destroyCart()" class="btn btn-warning">Destroy!</Button>
+		<div class="card mb-4 shadow-sm">
+			<div class="card-header">
+				<h2>Cart</h2>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<tbody class="cart">
 
+					</tbody>
+					<tfoot>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="total"></td>
+						<td></td>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
 	<script src="../dist/index.js"></script>
 	<script>
 
-			// render
-			const renderCart = (items) => {
-				const $cart = document.querySelector(".cart")
-				$cart.innerHTML = items.map((item)=>`
+		// render
+		const renderCart = (items) => {
+			const $cart = document.querySelector(".cart")
+			const $total = document.querySelector(".total")
+
+			$cart.innerHTML = items.map((item) => `
 					<tr>
 						<td>#${item.id}</td>
 						<td>${item.name}</td>
 						<td>${item.quantity}</td>
-						<td>${item.price}</td>
-						<td><Button class="btn btn-primary" onClick="removeFromCart(${item.id})">Delete</Button></td>
+						<td>$${item.price}</td>
+						<td class="text-right"><Button class="btn btn-primary" onClick="cartLS.remove(${item.id})">Delete</Button></td>
 					</tr>`).join("")
-			}
 
-			// init 
-			renderCart(cartLS.list())
-			
-			// listen for changes and re-render
-			cartLS.onChange(renderCart)
-			
-			// add 
-			const addToCart = () => {
-				cartLS.add({id: 1, name: "test", price: 100})
-			}
+			$total.innerHTML = "$"+cartLS.total()
+		}
 
-			// remove
-			const removeFromCart = (id) =>{
-				cartLS.remove(id)
-			}
 
-			// destroy
-			const destroyCart = ()=>{
-				cartLS.destroy();
-			}
+		// init 
+		renderCart(cartLS.list())
+
+		// listen for changes and re-render
+		cartLS.onChange(renderCart)
+
+		// destroy
+		const destroyCart = () => {
+			cartLS.destroy();
+		}
 	</script>
 </body>
 
