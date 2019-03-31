@@ -13,8 +13,8 @@ var cartLS = (function (exports) {
 		if(saveListener) saveListener(get(key || STORAGE_KEY));
 	};
 
-	const clear = () => {
-		localStorage.removeItem(STORAGE_KEY);
+	const clear = (key) => {
+		localStorage.removeItem(key || STORAGE_KEY);
 		if(saveListener) saveListener(get(key || STORAGE_KEY));
 	};
 
