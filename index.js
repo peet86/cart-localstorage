@@ -1,4 +1,4 @@
-import { get as getStorage, save as saveStorage, clear as clearStorage } from './utils/localstorage'
+// API 
 
 const list = () => getStorage();
 
@@ -16,6 +16,10 @@ const total = (cb) => getStorage().reduce((sum, product) => isCallback(cb) ? cb(
 
 const destroy = () => clearStorage()
 
+const listen = (cb) => listenStorage(cb)
+
+
+// HELPERS
 
 const isValid = (product) => product.id && product.price
 
@@ -25,4 +29,21 @@ const isCalcable = (product) => (product && product.price && product.quantity)
 
 const isCallback = (cb) => cb && typeof cb === Function
 
-export { list, get, add, remove, update, total, destroy, exists, subtotal };
+
+// STORAGE API 
+
+const STORAGE_KEY = '__cart'
+
+const getStorage = (key) => JSON.parse(localStorage.getItem(key || STORAGE_KEY)) || [];
+
+const saveStorage = (data, key) => localStorage.setItem(key || STORAGE_KEY, JSON.stringify(data));
+
+const clearStorage = () => localStorage.removeItem(STORAGE_KEY)
+
+const listenStorage = (cb) => window.addEventListener('storage', (event, cb)=> (event,cb) => {
+	if(event.key === STORAGE_KEY){
+		cb(get(STORAGE_KEY))
+	}
+})  
+
+export { list, get, add, remove, update, total, destroy, exists, subtotal, listen };
