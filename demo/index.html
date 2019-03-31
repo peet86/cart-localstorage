@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Demo</title>
+</head>
+
+<body>
+		<Button onClick="addToCart()" class="btn btn-primary">Add to Cart</Button>
+
+		<h3>Cart</h3>
+		<table class="cart table">
+			
+		</table>
+	<script src="../dist/index.js"></script>
+	<script>
+
+			// render
+			const renderCart = (items) => {
+				const $cart = document.querySelector(".cart")
+				const htmlArray = items.map((item)=>`
+					<tr>
+						<td>#${item.id}</td>
+						<td>${item.name}</td>
+						<td>${item.quantity}</td>
+						<td>${item.price}</td>
+						<td><Button class="btn btn-primary" onClick="removeFromCart(${item.id})">Delete</Button></td>
+					</tr>`)
+					console.log($cart)
+					$cart.innerHTML = htmlArray.join("")
+			}
+
+			// init 
+			renderCart(cartLS.list())
+			
+			// listen for changes and re-render
+			cartLS.onChange(renderCart)
+			
+			// add 
+			const addToCart = () => {
+				cartLS.add({id: 1, name: "test", price: 100})
+			}
+
+			// remove
+			const removeFromCart = (id) =>{
+				cartLS.remove(id)
+			}
+	</script>
+</body>
+
+</html>

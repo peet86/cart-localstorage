@@ -16,7 +16,7 @@ const total = (cb) => getStorage().reduce((sum, product) => isCallback(cb) ? cb(
 
 const destroy = () => clearStorage()
 
-const onChange = (cb) => listenStorage(cb)
+const onChange = (cb) => isCallback(cb) ? listenStorage(cb) : console.log(typeof cb)
 
 
 const isValid = (product) => product.id && product.price
@@ -25,6 +25,6 @@ const subtotal = (product) => isCalcable(product) ? (product.price * product.qua
 
 const isCalcable = (product) => (product && product.price && product.quantity)
 
-const isCallback = (cb) => cb && typeof cb === Function
+const isCallback = (cb) => cb && typeof cb === "function"
 
 export { list, get, add, remove, update, total, destroy, exists, subtotal, onChange };

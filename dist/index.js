@@ -3,13 +3,18 @@ var cartLS = (function (exports) {
 
 	const STORAGE_KEY = '__cart';
 
+	let saveListener = null;
+
 	const get = (key) => JSON.parse(localStorage.getItem(key || STORAGE_KEY)) || [];
 
-	const save = (data, key) => localStorage.setItem(key || STORAGE_KEY, JSON.stringify(data));
+	const save = (data, key) => {
+		localStorage.setItem(key || STORAGE_KEY, JSON.stringify(data));
+		if(saveListener) saveListener(get(key || STORAGE_KEY));
+	};
 
 	const clear = () => localStorage.removeItem(STORAGE_KEY);
 
-	const listen = (cb) => window.addEventListener('storage', (event) =>  (event.key === STORAGE_KEY) ? cb(get(STORAGE_KEY)) : false);
+	const listen = (cb) => { saveListener = cb; }; // ugly but storage listener is not working for the same window..
 
 	const list = () => get();
 
@@ -27,7 +32,7 @@ var cartLS = (function (exports) {
 
 	const destroy = () => clear();
 
-	const onChange = (cb) => listen(cb);
+	const onChange = (cb) => isCallback(cb) ? listen(cb) : console.log(typeof cb);
 
 
 	const isValid = (product) => product.id && product.price;
@@ -36,7 +41,7 @@ var cartLS = (function (exports) {
 
 	const isCalcable = (product) => (product && product.price && product.quantity);
 
-	const isCallback = (cb) => cb && typeof cb === Function;
+	const isCallback = (cb) => cb && typeof cb === "function";
 
 	exports.add = add;
 	exports.destroy = destroy;
