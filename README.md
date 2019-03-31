@@ -28,8 +28,6 @@ add({id: 1, name: "Product 1", price: 100}, 1)
 
 console.log(total()) 
 // output: 100
-
-...
 ```
 
 ## Features
