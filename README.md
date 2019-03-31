@@ -1,7 +1,9 @@
 # cart-localstorage
-Super simple shopping cart library
+
+#### Super simple JavaScript shopping cart library
 
 This library utilizes the browser's localStorage and creates a persistent shopping cart instance during the first add(product) call. 
+
 
 ## Install: 
 
