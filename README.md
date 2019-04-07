@@ -108,12 +108,12 @@ total()
 or you can pass a custom reducer function as the first argument and have full control over the calculation.
 
 
-#### detroy()
+#### destroy()
 
-Deletes the cart array from localStorage.
+Deletes the cart array from the browser's localStorage.
 
 ```
-detroy()
+destroy()
 ```
 
 
