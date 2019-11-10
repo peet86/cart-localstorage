@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
+	<title>Demo</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<title>Demo</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<script src="https://unpkg.com/cart-localstorage@1.1.2/dist/cart-localstorage.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -67,6 +68,8 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
+						<td></td>
 						<td class="text-right">Total: <strong class="total"></strong></td>
 						<td></td>
 					</tfoot>
@@ -74,7 +77,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="cart-localstorage.js"></script>
 	<script>
 		function renderCart(items) {
 			const $cart = document.querySelector(".cart")
@@ -85,6 +87,14 @@
 						<td>#${item.id}</td>
 						<td>${item.name}</td>
 						<td>${item.quantity}</td>
+						<td style="width: 60px;">	
+							<button type="button" class="btn btn-block btn-sm btn-outline-primary"
+								onClick="cartLS.quantity(${item.id},1)">+</button>
+						</td>
+						<td style="width: 60px;">	
+							<button type="button" class="btn btn-block btn-sm btn-outline-primary"
+								onClick="cartLS.quantity(${item.id},-1)">-</button>
+						</td>
 						<td class="text-right">$${item.price}</td>
 						<td class="text-right"><Button class="btn btn-primary" onClick="cartLS.remove(${item.id})">Delete</Button></td>
 					</tr>`).join("")
