@@ -8,7 +8,7 @@ const add = (product, quantity) => isValid(product) ? exists(product.id) ? updat
 
 const remove = (id) => save(list().filter((product) => product.id !== id))
 
-const quantity = (id, diff) => exists(id) && get(id).quantity + diff >= 0 ? update(id, 'quantity', get(id).quantity + diff) : remove(id);
+const quantity = (id, diff) => exists(id) && get(id).quantity + diff > 0 ? update(id, 'quantity', get(id).quantity + diff) : remove(id);
 
 const update = (id, field, value) => save(list().map((product) => product.id === id ? ({ ...product, [field]: value }) : product))
 
