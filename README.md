@@ -2,7 +2,7 @@
 
 #### Super simple JavaScript shopping cart library
 
-This micro library utilizes the browser's localStorage to create a persistent shopping cart instance. 
+This micro library utilizes the browser's localStorage to create a persistent shopping cart instance
 
 
 ## Demo 
@@ -47,8 +47,8 @@ console.log(total())
 
 #### add(product, [quantity:1])
 
-Adds a product into the cart. If the product is already exists (same id) it increases the quantity of the product with 1. 
-"Product" always should be a JavaScript object with "id" and "price" mandatory properties.
+Adds product to the cart. If the product already exists it increases the quantity with 1. 
+The product object structure is flexible, only "id" and "price" are mandatory properties.
 
 ```
 const myproduct = {id: 3, name: "Vans", price: 75}
@@ -57,7 +57,7 @@ add(myproduct, 2)
 
 #### get(id)
 
-Get product by id 
+Get product from the cart by id 
 
 ```
 get(1)
@@ -66,7 +66,7 @@ get(1)
 
 #### exists(id)
 
-Checks if the product is already exists in the cart
+Checks if the product already exists in the cart
 
 ```
 exists(21)
@@ -75,7 +75,7 @@ exists(21)
 
 #### list()
 
-Dumps the cart as an array of products. 
+Get the content of the cart as an array of products. 
 
 ``` 
 list()
@@ -84,7 +84,7 @@ list()
 
 #### remove(id)
 
-Removes product from the cart
+Removes the product from the cart
 
 ```
 remove(1)
@@ -92,7 +92,7 @@ remove(1)
 
 #### update(id, property, value)
 
-Updates product's property with a certain value.
+Updates the product's property with a certain value.
 ```
 update(1,'price',200)
 ```
@@ -110,13 +110,13 @@ quantity(22,-1) // will decrease the quantity of product [id:22] with 1.
 
 #### total([reducer])
 
-By default it returns with the total price:  
+By default returns with the total price:  
 
 ```
 total()
 // 220
 ```
-or you can pass a custom reducer function as the first argument and have full control over the calculation.
+or you can pass a custom reducer function to have full control over the calculation.
 
 
 #### destroy()
