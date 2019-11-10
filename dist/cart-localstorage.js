@@ -6,7 +6,7 @@ var cartLS = (function (exports) {
 	let saveListener = null;
 	const listen = (cb) => { saveListener = cb; }; // ugly but storage listener is not working for the same window..
 
-	const get = (key) => JSON.parse(localStorage.getItem(key || STORAGE_KEY)) || [];
+	const list = (key) => JSON.parse(localStorage.getItem(key || STORAGE_KEY)) || [];
 
 	const save = (data, key) => {
 		localStorage.setItem(key || STORAGE_KEY, JSON.stringify(data));
@@ -18,19 +18,19 @@ var cartLS = (function (exports) {
 		if(saveListener) saveListener(get(key || STORAGE_KEY));
 	};
 
-	const list = () => get();
-
-	const get$1 = (id) => get().find((product) => product.id === id);
+	const get$1 = (id) => list().find((product) => product.id === id);
 
 	const exists = (id) => !!get$1(id);
 
-	const add = (product, quantity) => isValid(product) ? exists(product.id) ? update(product.id, 'quantity', get$1(product.id).quantity + (quantity || 1)) : save(get().concat({ ...product, quantity: quantity || 1 })) : null;
+	const add = (product, quantity) => isValid(product) ? exists(product.id) ? update(product.id, 'quantity', get$1(product.id).quantity + (quantity || 1)) : save(list().concat({ ...product, quantity: quantity || 1 })) : null;
 
-	const remove = (id) => save(get().filter((product) => product.id !== id));
+	const remove = (id) => save(list().filter((product) => product.id !== id));
 
-	const update = (id, field, value) => save(get().map((product) => product.id === id ? ({ ...product, [field]: value }) : product));
+	const quantity = (id, diff) => exists(id) && get$1(id).quantity + diff >= 0 ? update(id, 'quantity', get$1(id).quantity + diff) : remove(id);
 
-	const total = (cb) => get().reduce((sum, product) => isCallback(cb) ? cb(sum, product) : (sum += subtotal(product)), 0);
+	const update = (id, field, value) => save(list().map((product) => product.id === id ? ({ ...product, [field]: value }) : product));
+
+	const total = (cb) => list().reduce((sum, product) => isCallback(cb) ? cb(sum, product) : (sum += subtotal(product)), 0);
 
 	const destroy = () => clear();
 
@@ -51,6 +51,7 @@ var cartLS = (function (exports) {
 	exports.get = get$1;
 	exports.list = list;
 	exports.onChange = onChange;
+	exports.quantity = quantity;
 	exports.remove = remove;
 	exports.subtotal = subtotal;
 	exports.total = total;
