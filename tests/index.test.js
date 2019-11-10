@@ -1,9 +1,9 @@
 
 jest.mock('../utils/localstorage.js');
 
-import { get, list, add, destroy, remove, update, subtotal, total, quantity } from '../index'
+import { get, add, destroy, remove, update, subtotal, total, quantity } from '../index'
 
-import { get as getLocalStorage, save as saveLocalStorage, clear as clearLocalStorage } from '../utils/localstorage.js';
+import { list, save, clear } from '../utils/localstorage.js';
 
 const PRODUCT_1 = { id: 1, name: "1", quantity: 1, price: 10 }
 const PRODUCT_1B = { id: 1, name: "b", quantity: 1, price: 10 }
@@ -23,7 +23,7 @@ describe('Cart', () => {
 
 		it('should return with one object', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			const item = get(1);
 
@@ -32,7 +32,7 @@ describe('Cart', () => {
 
 		it('should return with the first matching product', () => {
 
-			getLocalStorage.mockReturnValue(CART_11B2);
+			list.mockReturnValue(CART_11B2);
 
 			const item = get(1);
 
@@ -41,7 +41,7 @@ describe('Cart', () => {
 
 		it('should return with the correct product', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			const item = get(2);
 
@@ -54,7 +54,7 @@ describe('Cart', () => {
 
 		it('should return with all the products', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			expect(list()).toHaveLength(2);
 
@@ -66,72 +66,72 @@ describe('Cart', () => {
 
 		it('should not add product to the cart without id', () => {
 
-			getLocalStorage.mockReturnValue(CART_0);
+			list.mockReturnValue(CART_0);
 
 			add({ name: "c", price: 100 });
 
-			expect(saveLocalStorage).not.toHaveBeenCalled();
+			expect(save).not.toHaveBeenCalled();
 
 		});
 
 		it('should not add product to the cart without price', () => {
 
-			getLocalStorage.mockReturnValue(CART_0);
+			list.mockReturnValue(CART_0);
 
 			add({ name: "c", id: 10 });
 
-			expect(saveLocalStorage).not.toHaveBeenCalled();
+			expect(save).not.toHaveBeenCalled();
 
 		});
 
 		it('should add the new product to the empty cart', () => {
 
-			getLocalStorage.mockReturnValue(CART_0);
+			list.mockReturnValue(CART_0);
 
 			add(PRODUCT_1);
 
-			expect(saveLocalStorage).toBeCalledWith(CART_1);
+			expect(save).toBeCalledWith(CART_1);
 
 		});
 
 
 		it('should add new product when the product does not exists in the cart ', () => {
 
-			getLocalStorage.mockReturnValue(CART_1);
+			list.mockReturnValue(CART_1);
 
 			add(PRODUCT_2);
 
-			expect(saveLocalStorage).toBeCalledWith(CART_12);
+			expect(save).toBeCalledWith(CART_12);
 
 		});
 
 		it('should increase the quantity when the product exists in the cart ', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			add(PRODUCT_2);
 
-			expect(saveLocalStorage).toBeCalledWith([PRODUCT_1, { ...PRODUCT_2, quantity: 2 }]);
+			expect(save).toBeCalledWith([PRODUCT_1, { ...PRODUCT_2, quantity: 2 }]);
 
 		});
 
 		it('should increase the quantity with the second parameter\'s value when the product exists in the cart ', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			add(PRODUCT_2, 2);
 
-			expect(saveLocalStorage).toBeCalledWith([PRODUCT_1, { ...PRODUCT_2, quantity: 3 }]);
+			expect(save).toBeCalledWith([PRODUCT_1, { ...PRODUCT_2, quantity: 3 }]);
 
 		});
 
 		it('should add the new product with the second parameter\'s value to the cart', () => {
 
-			getLocalStorage.mockReturnValue(CART_0);
+			list.mockReturnValue(CART_0);
 
 			add(PRODUCT_1, 3);
 
-			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_1, quantity: 3 }]);
+			expect(save).toBeCalledWith([{ ...PRODUCT_1, quantity: 3 }]);
 
 		});
 
@@ -141,31 +141,31 @@ describe('Cart', () => {
 
 
 		it('should remove the correct item', () => {
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			remove(1);
 
-			expect(saveLocalStorage).toBeCalledWith([PRODUCT_2]);
+			expect(save).toBeCalledWith([PRODUCT_2]);
 
 		})
 
 		it('should not remove anything when the id is null', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			remove();
 
-			expect(saveLocalStorage).toBeCalledWith(CART_12);
+			expect(save).toBeCalledWith(CART_12);
 
 		})
 
 		it('should not remove anything when the id is wrong', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			remove(5);
 
-			expect(saveLocalStorage).toBeCalledWith(CART_12);
+			expect(save).toBeCalledWith(CART_12);
 
 		})
 	})
@@ -173,29 +173,29 @@ describe('Cart', () => {
 	describe('update', () => {
 		it('should update existing product\'s quantity', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			update(1, "quantity", 5);
-			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_1, quantity: 5 }, PRODUCT_2]);
+			expect(save).toBeCalledWith([{ ...PRODUCT_1, quantity: 5 }, PRODUCT_2]);
 
 		})
 
 		it('should do nothing when the product does not exists', () => {
 
-			getLocalStorage.mockReturnValue(CART_1);
+			list.mockReturnValue(CART_1);
 
 			update(2, "quantity", 3);
 
-			expect(saveLocalStorage).toBeCalledWith(CART_1);
+			expect(save).toBeCalledWith(CART_1);
 
 		})
 
 		it('should do nothing when the value is negative', () => {
 
-			getLocalStorage.mockReturnValue(CART_1);
+			list.mockReturnValue(CART_1);
 
 			update(1, "quantity", -1);
-			expect(saveLocalStorage).toBeCalledWith(CART_1);
+			expect(save).toBeCalledWith(CART_1);
 
 		})
 
@@ -206,37 +206,37 @@ describe('Cart', () => {
 	describe('quantity', () => {
 		it('should increase existing product\'s quantity by 2', () => {
 
-			getLocalStorage.mockReturnValue([PRODUCT_4]);
+			list.mockReturnValue([PRODUCT_4]);
 
 			quantity(4, 2);
-			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_4, quantity: 4 }]);
+			expect(save).toBeCalledWith([{ ...PRODUCT_4, quantity: 4 }]);
 
 		})
 
 		it('should decrease existing product\'s quantity by 1', () => {
 
-			getLocalStorage.mockReturnValue([PRODUCT_4]);
+			list.mockReturnValue([PRODUCT_4]);
 
 			quantity(4, -1);
 
-			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_4, quantity: 1 }]);
+			expect(save).toBeCalledWith([{ ...PRODUCT_4, quantity: 1 }]);
 
 		})
 
 		it('should remove existing product when quantity diff decreases new quantity bellow 0', () => {
 
-			getLocalStorage.mockReturnValue([PRODUCT_4]);
+			list.mockReturnValue([PRODUCT_4]);
 
 			quantity(4, -5);
-			expect(saveLocalStorage).toBeCalledWith([]);
+			expect(save).toBeCalledWith([]);
 		})
 
 		it('should remove existing product when quantity diff lowers quantity to 0', () => {
 
-			getLocalStorage.mockReturnValue([PRODUCT_4]);
+			list.mockReturnValue([PRODUCT_4]);
 
 			quantity(4, -2);
-			expect(saveLocalStorage).toBeCalledWith([]);
+			expect(save).toBeCalledWith([]);
 		})
 
 
@@ -248,7 +248,7 @@ describe('Cart', () => {
 
 			destroy();
 
-			expect(clearLocalStorage).toBeCalled();
+			expect(clear).toBeCalled();
 
 		})
 
@@ -287,7 +287,7 @@ describe('Cart', () => {
 
 		it('should return with cart total price', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			expect(total()).toBe(30);
 
@@ -295,7 +295,7 @@ describe('Cart', () => {
 
 		it('should return 0 when cart is empty ', () => {
 
-			getLocalStorage.mockReturnValue(CART_0);
+			list.mockReturnValue(CART_0);
 
 			expect(total()).toBe(0);
 
@@ -303,7 +303,7 @@ describe('Cart', () => {
 
 		it('should accept custom accumulator', () => {
 
-			getLocalStorage.mockReturnValue(CART_12);
+			list.mockReturnValue(CART_12);
 
 			const acc = (sum, product) => (sum += subtotal(product))
 

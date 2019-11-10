@@ -1,24 +1,22 @@
-import { get as getStorage, save as saveStorage, clear as clearStorage, listen as listenStorage } from './utils/localstorage'
+import { list, save, clear, listen } from './utils/localstorage'
 
-const list = () => getStorage();
-
-const get = (id) => getStorage().find((product) => product.id === id)
+const get = (id) => list().find((product) => product.id === id)
 
 const exists = (id) => !!get(id)
 
-const add = (product, quantity) => isValid(product) ? exists(product.id) ? update(product.id, 'quantity', get(product.id).quantity + (quantity || 1)) : saveStorage(getStorage().concat({ ...product, quantity: quantity || 1 })) : null;
+const add = (product, quantity) => isValid(product) ? exists(product.id) ? update(product.id, 'quantity', get(product.id).quantity + (quantity || 1)) : save(list().concat({ ...product, quantity: quantity || 1 })) : null;
 
-const remove = (id) => saveStorage(getStorage().filter((product) => product.id !== id))
+const remove = (id) => save(list().filter((product) => product.id !== id))
 
 const quantity = (id, diff) => exists(id) && get(id).quantity + diff >= 0 ? update(id, 'quantity', get(id).quantity + diff) : remove(id);
 
-const update = (id, field, value) => saveStorage(getStorage().map((product) => product.id === id ? ({ ...product, [field]: value }) : product))
+const update = (id, field, value) => save(list().map((product) => product.id === id ? ({ ...product, [field]: value }) : product))
 
-const total = (cb) => getStorage().reduce((sum, product) => isCallback(cb) ? cb(sum, product) : (sum += subtotal(product)), 0);
+const total = (cb) => list().reduce((sum, product) => isCallback(cb) ? cb(sum, product) : (sum += subtotal(product)), 0);
 
-const destroy = () => clearStorage()
+const destroy = () => clear()
 
-const onChange = (cb) => isCallback(cb) ? listenStorage(cb) : console.log(typeof cb)
+const onChange = (cb) => isCallback(cb) ? listen(cb) : console.log(typeof cb)
 
 
 const isValid = (product) => product.id && product.price
