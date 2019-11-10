@@ -22,12 +22,12 @@ npm install cart-localstorage
 yarn add cart-localstorage
 ```
 
-OR use the bundled version: 
+OR use the bundled version (via CDN): 
 
 ```html
-<script src="cart-localstorage.js"></script>
-```
+<script src="https://unpkg.com/cart-localstorage@1.1.1/dist/cart-localstorage.js" type="text/javascript"></script>
 
+```
 
 ## Example
 
