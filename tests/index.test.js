@@ -1,13 +1,15 @@
 
 jest.mock('../utils/localstorage.js');
 
-import { get, list, add, destroy, remove, update, subtotal, total } from '../index'
+import { get, list, add, destroy, remove, update, subtotal, total, quantity } from '../index'
+
 import { get as getLocalStorage, save as saveLocalStorage, clear as clearLocalStorage } from '../utils/localstorage.js';
 
 const PRODUCT_1 = { id: 1, name: "1", quantity: 1, price: 10 }
 const PRODUCT_1B = { id: 1, name: "b", quantity: 1, price: 10 }
 const PRODUCT_2 = { id: 2, name: "2", quantity: 1, price: 20 }
 const PRODUCT_3 = { id: 3, name: "3", quantity: 1, price: 30 }
+const PRODUCT_4 = { id: 4, name: "4", quantity: 2, price: 30 }
 
 const CART_0 = []
 const CART_1 = [PRODUCT_1]
@@ -195,6 +197,46 @@ describe('Cart', () => {
 			update(1, "quantity", -1);
 			expect(saveLocalStorage).toBeCalledWith(CART_1);
 
+		})
+
+
+	})
+
+
+	describe('quantity', () => {
+		it('should increase existing product\'s quantity by 2', () => {
+
+			getLocalStorage.mockReturnValue([PRODUCT_4]);
+
+			quantity(4, 2);
+			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_4, quantity: 4 }]);
+
+		})
+
+		it('should decrease existing product\'s quantity by 1', () => {
+
+			getLocalStorage.mockReturnValue([PRODUCT_4]);
+
+			quantity(4, -1);
+
+			expect(saveLocalStorage).toBeCalledWith([{ ...PRODUCT_4, quantity: 1 }]);
+
+		})
+
+		it('should remove existing product when quantity diff decreases new quantity bellow 0', () => {
+
+			getLocalStorage.mockReturnValue([PRODUCT_4]);
+
+			quantity(4, -5);
+			expect(saveLocalStorage).toBeCalledWith([]);
+		})
+
+		it('should remove existing product when quantity diff lowers quantity to 0', () => {
+
+			getLocalStorage.mockReturnValue([PRODUCT_4]);
+
+			quantity(4, -2);
+			expect(saveLocalStorage).toBeCalledWith([]);
 		})
 
 

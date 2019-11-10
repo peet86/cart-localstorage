@@ -10,6 +10,8 @@ const add = (product, quantity) => isValid(product) ? exists(product.id) ? updat
 
 const remove = (id) => saveStorage(getStorage().filter((product) => product.id !== id))
 
+const quantity = (id, diff) => exists(id) && get(id).quantity + diff >= 0 ? update(id, 'quantity', get(id).quantity + diff) : remove(id);
+
 const update = (id, field, value) => saveStorage(getStorage().map((product) => product.id === id ? ({ ...product, [field]: value }) : product))
 
 const total = (cb) => getStorage().reduce((sum, product) => isCallback(cb) ? cb(sum, product) : (sum += subtotal(product)), 0);
@@ -27,4 +29,4 @@ const isCalcable = (product) => (product && product.price && product.quantity)
 
 const isCallback = (cb) => cb && typeof cb === "function"
 
-export { list, get, add, remove, update, total, destroy, exists, subtotal, onChange };
+export { list, get, add, remove, update, quantity, total, destroy, exists, subtotal, onChange };

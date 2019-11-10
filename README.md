@@ -97,6 +97,17 @@ Updates product's property with a certain value.
 update(1,'price',200)
 ```
 
+#### quantity(id, diff)
+
+Increase / decrease product's quantity with a positive or negative value.
+
+```
+quantity(22,-1) // will decrease the quantity of product [id:22] with 1.
+```
+
+
+
+
 #### total([reducer])
 
 By default it returns with the total price:  
