@@ -11,11 +11,6 @@ const PRODUCT_2 = { id: 2, name: "2", quantity: 1, price: 20 }
 const PRODUCT_3 = { id: 3, name: "3", quantity: 1, price: 30 }
 const PRODUCT_4 = { id: 4, name: "4", quantity: 2, price: 30 }
 
-const CART_0 = []
-const CART_1 = [PRODUCT_1]
-const CART_12 = [PRODUCT_1, PRODUCT_2]
-const CART_11B2 = [PRODUCT_1, PRODUCT_1B, PRODUCT_2]
-
 
 describe('Cart', () => {
 
@@ -23,7 +18,7 @@ describe('Cart', () => {
 
 		it('should return with one object', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			const item = get(1);
 
@@ -32,7 +27,7 @@ describe('Cart', () => {
 
 		it('should return with the first matching product', () => {
 
-			list.mockReturnValue(CART_11B2);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_1B, PRODUCT_2]);
 
 			const item = get(1);
 
@@ -41,7 +36,7 @@ describe('Cart', () => {
 
 		it('should return with the correct product', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			const item = get(2);
 
@@ -54,7 +49,7 @@ describe('Cart', () => {
 
 		it('should return with all the products', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			expect(list()).toHaveLength(2);
 
@@ -66,7 +61,7 @@ describe('Cart', () => {
 
 		it('should not add product to the cart without id', () => {
 
-			list.mockReturnValue(CART_0);
+			list.mockReturnValue([]);
 
 			add({ name: "c", price: 100 });
 
@@ -76,7 +71,7 @@ describe('Cart', () => {
 
 		it('should not add product to the cart without price', () => {
 
-			list.mockReturnValue(CART_0);
+			list.mockReturnValue([]);
 
 			add({ name: "c", id: 10 });
 
@@ -86,28 +81,28 @@ describe('Cart', () => {
 
 		it('should add the new product to the empty cart', () => {
 
-			list.mockReturnValue(CART_0);
+			list.mockReturnValue([]);
 
 			add(PRODUCT_1);
 
-			expect(save).toBeCalledWith(CART_1);
+			expect(save).toBeCalledWith([PRODUCT_1]);
 
 		});
 
 
 		it('should add new product when the product does not exists in the cart ', () => {
 
-			list.mockReturnValue(CART_1);
+			list.mockReturnValue([PRODUCT_1]);
 
 			add(PRODUCT_2);
 
-			expect(save).toBeCalledWith(CART_12);
+			expect(save).toBeCalledWith([PRODUCT_1, PRODUCT_2]);
 
 		});
 
 		it('should increase the quantity when the product exists in the cart ', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			add(PRODUCT_2);
 
@@ -117,7 +112,7 @@ describe('Cart', () => {
 
 		it('should increase the quantity with the second parameter\'s value when the product exists in the cart ', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			add(PRODUCT_2, 2);
 
@@ -127,7 +122,7 @@ describe('Cart', () => {
 
 		it('should add the new product with the second parameter\'s value to the cart', () => {
 
-			list.mockReturnValue(CART_0);
+			list.mockReturnValue([]);
 
 			add(PRODUCT_1, 3);
 
@@ -141,7 +136,7 @@ describe('Cart', () => {
 
 
 		it('should remove the correct item', () => {
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			remove(1);
 
@@ -151,21 +146,21 @@ describe('Cart', () => {
 
 		it('should not remove anything when the id is null', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			remove();
 
-			expect(save).toBeCalledWith(CART_12);
+			expect(save).toBeCalledWith([PRODUCT_1, PRODUCT_2]);
 
 		})
 
 		it('should not remove anything when the id is wrong', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			remove(5);
 
-			expect(save).toBeCalledWith(CART_12);
+			expect(save).toBeCalledWith([PRODUCT_1, PRODUCT_2]);
 
 		})
 	})
@@ -173,7 +168,7 @@ describe('Cart', () => {
 	describe('update', () => {
 		it('should update existing product\'s quantity', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			update(1, "quantity", 5);
 			expect(save).toBeCalledWith([{ ...PRODUCT_1, quantity: 5 }, PRODUCT_2]);
@@ -182,20 +177,20 @@ describe('Cart', () => {
 
 		it('should do nothing when the product does not exists', () => {
 
-			list.mockReturnValue(CART_1);
+			list.mockReturnValue([PRODUCT_1]);
 
 			update(2, "quantity", 3);
 
-			expect(save).toBeCalledWith(CART_1);
+			expect(save).toBeCalledWith([PRODUCT_1]);
 
 		})
 
 		it('should do nothing when the value is negative', () => {
 
-			list.mockReturnValue(CART_1);
+			list.mockReturnValue([PRODUCT_1]);
 
 			update(1, "quantity", -1);
-			expect(save).toBeCalledWith(CART_1);
+			expect(save).toBeCalledWith([PRODUCT_1]);
 
 		})
 
@@ -287,7 +282,7 @@ describe('Cart', () => {
 
 		it('should return with cart total price', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			expect(total()).toBe(30);
 
@@ -295,7 +290,7 @@ describe('Cart', () => {
 
 		it('should return 0 when cart is empty ', () => {
 
-			list.mockReturnValue(CART_0);
+			list.mockReturnValue([]);
 
 			expect(total()).toBe(0);
 
@@ -303,7 +298,7 @@ describe('Cart', () => {
 
 		it('should accept custom accumulator', () => {
 
-			list.mockReturnValue(CART_12);
+			list.mockReturnValue([PRODUCT_1, PRODUCT_2]);
 
 			const acc = (sum, product) => (sum += subtotal(product))
 
