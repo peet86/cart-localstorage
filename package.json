@@ -1,11 +1,11 @@
 {
   "name": "cart-localstorage",
   "version": "1.1.1",
-  "description": "Tiny shopping cart on top of LolcalStorage - ES6, < 1Kb, test coverage",
+  "description": "Tiny shopping cart on top of LolcalStorage - ES6, < 1Kb, full test coverage",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup index.js --file dist/cart-localstorage.js --format iife --name cartLS"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -26,10 +26,16 @@
   },
   "homepage": "https://github.com/peet86/cart-localstorage#readme",
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.1",
-    "babel-loader": "^8.0.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "babel-loader": "^8.0.6",
     "jest": "^24.5.0",
-    "rollup": "^1.7.4"
-  }
+    "rollup": "^1.26.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-babel-minify": "^9.1.1"
+  },
+  "dependencies": {}
 }

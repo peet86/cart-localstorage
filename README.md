@@ -25,7 +25,7 @@ yarn add cart-localstorage
 OR use the bundled version (via CDN): 
 
 ```html
-<script src="https://unpkg.com/cart-localstorage@1.1.1/dist/cart-localstorage.js" type="text/javascript"></script>
+<script src="https://unpkg.com/cart-localstorage@1.1.2/dist/cart-localstorage.min.js" type="text/javascript"></script>
 
 ```
 
