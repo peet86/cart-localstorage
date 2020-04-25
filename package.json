@@ -1,6 +1,6 @@
 {
   "name": "cart-localstorage",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Tiny shopping cart on top of LolcalStorage - ES6, < 1Kb, full test coverage",
   "main": "index.js",
   "scripts": {
