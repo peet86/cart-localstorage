@@ -22,8 +22,6 @@ npm install cart-localstorage
 yarn add cart-localstorage
 ```
 
-### Example
-
 ```javascript
 import { add, total } from 'cart-localstorage' 
 
@@ -40,8 +38,6 @@ console.log(total())
 <script src="https://unpkg.com/cart-localstorage@1.1.4/dist/cart-localstorage.min.js" type="text/javascript"></script>
 
 ```
-
-### Example
 
 ```javascript
 cartLS.add({id: 1, name: "Product 1", price: 100})
