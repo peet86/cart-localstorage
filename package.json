@@ -24,6 +24,7 @@
   "bugs": {
     "url": "https://github.com/peet86/cart-localstorage/issues"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "homepage": "https://github.com/peet86/cart-localstorage#readme",
   "devDependencies": {
     "@babel/core": "^7.9.0",
