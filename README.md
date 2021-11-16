@@ -2,7 +2,7 @@
 
 #### Super simple JavaScript shopping cart library
 
-This micro library utilizes the browser's localStorage to create a persistent shopping cart instance
+This micro library (2.2Kb) utilizes the browser's localStorage to create a persistent shopping cart instance. 
 
 
 ## Demo 
