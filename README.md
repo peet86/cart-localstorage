@@ -121,8 +121,11 @@ By default returns with the total price:
 total()
 // 220
 ```
-or you can pass a custom reducer function to have full control over the calculation.
+or you can pass a custom reducer function to summarize other attributes, like product quantity:
 
+```javascript
+total((sum, product) => (sum += product.quantity), 0)
+```
 
 #### destroy()
 
