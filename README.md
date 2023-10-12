@@ -139,4 +139,4 @@ destroy()
 
 ## License
 
-This plugin is available under Apache 2.0 license.
+This library is available under MIT license.

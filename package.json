@@ -20,7 +20,7 @@
     "javascript"
   ],
   "author": "Peter Varga",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/peet86/cart-localstorage/issues"
   },
